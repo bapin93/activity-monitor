@@ -20,10 +20,6 @@
             android:name=".CalculateActivityView"
             android:label="@string/title_activity_calculate_activity_view" >
         </activity>
-        <activity
-            android:name=".SettingsView"
-            android:label="@string/title_activity_settings_view" >
-        </activity>
     </application>
 
 </manifest>
