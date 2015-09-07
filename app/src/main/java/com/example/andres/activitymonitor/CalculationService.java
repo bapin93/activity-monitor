@@ -10,79 +10,99 @@ public class CalculationService {
     private static final double KM_IN_MILE = 0.621;
     private static final double RUNNING_CONSTANT = 0.63;
     private static final double WALKING_CONSTANT = 0.30;
+    private static final double KG_IN_POUND = 2.2;
+    private static final double CM_IN_INCH = 2.54;
+    private static final double FEMALE_HEIGHT_CONSTANT = 1.84;
+    private static final double FEMALE_WEIGHT_CONSTANT = 9.56;
+    private static final double FEMALE_AGE_CONSTANT = 4.67;
+    private static final double MALE_HEIGHT_CONSTANT = 5;
+    private static final double MALE_WEIGHT_CONSTANT = 13.75;
+    private static final double MALE_AGE_CONSTANT = 6.75;
 
+    private User _user;
 
     /**
      *
-     * @param user
      */
-    public CalculationService() {
+    public CalculationService(final User user) {
+        _user = user;
     }
 
-
-    public double calculateBMR(User user) {
+    /**
+     *
+     * @return the basal metabolic rate for the given user
+     */
+    public double calculateBMR() {
         double basalMetabolicRate = 0;
-        if(user.getGender().equalsIgnoreCase("male")) {
-            if(user.getWeightUnits().equalsIgnoreCase("lbs")) {
-                if(user.getHeightUnits().equalsIgnoreCase("in")) {
-                    basalMetabolicRate =  MALE_BASE + 13.75*user.getBodyWeight()/2.2 +
-                            5*(user.getHeight()*2.54) - 6.75*user.getAge();
-                } else if (user.getHeightUnits().equalsIgnoreCase("cm")) {
-                    basalMetabolicRate =  MALE_BASE + 13.75*user.getBodyWeight()/2.2 +
-                            5*(user.getHeight()) - 6.75*user.getAge();
+        if(_user.getGender().equalsIgnoreCase("male")) {
+            if(_user.getWeightUnits().equalsIgnoreCase("lbs")) {
+                if(_user.getHeightUnits().equalsIgnoreCase("in")) {
+                    basalMetabolicRate =  MALE_BASE + MALE_WEIGHT_CONSTANT*_user.getBodyWeight()/
+                            KG_IN_POUND + MALE_HEIGHT_CONSTANT *(_user.getHeight()*CM_IN_INCH) -
+                            MALE_AGE_CONSTANT*_user.getAge();
+                } else if (_user.getHeightUnits().equalsIgnoreCase("cm")) {
+                    basalMetabolicRate =  MALE_BASE + MALE_WEIGHT_CONSTANT*_user.getBodyWeight()/
+                            KG_IN_POUND + MALE_HEIGHT_CONSTANT *(_user.getHeight()) -
+                            MALE_AGE_CONSTANT*_user.getAge();
                 }
-            } else if(user.getWeightUnits().equalsIgnoreCase("kg")) {
-                if(user.getHeightUnits().equalsIgnoreCase("in")) {
-                    basalMetabolicRate =  MALE_BASE + 13.75*user.getBodyWeight() +
-                            5*(user.getHeight()*2.54) - 6.75*user.getAge();
-                } else if (user.getHeightUnits().equalsIgnoreCase("cm")) {
-                    basalMetabolicRate =  MALE_BASE + 13.75*user.getBodyWeight() +
-                            5*user.getHeight() - 6.75*user.getAge();
+            } else if(_user.getWeightUnits().equalsIgnoreCase("kg")) {
+                if(_user.getHeightUnits().equalsIgnoreCase("in")) {
+                    basalMetabolicRate =  MALE_BASE + MALE_WEIGHT_CONSTANT*_user.getBodyWeight() +
+                            MALE_HEIGHT_CONSTANT *(_user.getHeight()*CM_IN_INCH) -
+                            MALE_AGE_CONSTANT*_user.getAge();
+                } else if (_user.getHeightUnits().equalsIgnoreCase("cm")) {
+                    basalMetabolicRate =  MALE_BASE + MALE_WEIGHT_CONSTANT*_user.getBodyWeight() +
+                            MALE_HEIGHT_CONSTANT *_user.getHeight() -
+                            MALE_AGE_CONSTANT*_user.getAge();
                 }
             }
-        } else if(user.getGender().equalsIgnoreCase("female")) {
-            if(user.getWeightUnits().equalsIgnoreCase("lbs")) {
-                if(user.getHeightUnits().equalsIgnoreCase("in")) {
-                    basalMetabolicRate =  FEMALE_BASE + 9.56*user.getBodyWeight()/2.2 +
-                            1.84*(user.getHeight()*2.54) - 4.67*user.getAge();
-                } else if (user.getHeightUnits().equalsIgnoreCase("cm")) {
-                    basalMetabolicRate =  FEMALE_BASE + 9.56*user.getBodyWeight()/2.2 +
-                            1.84*(user.getHeight()) - 4.67*user.getAge();
+        } else if(_user.getGender().equalsIgnoreCase("female")) {
+            if(_user.getWeightUnits().equalsIgnoreCase("lbs")) {
+                if(_user.getHeightUnits().equalsIgnoreCase("in")) {
+                    basalMetabolicRate =  FEMALE_BASE + FEMALE_WEIGHT_CONSTANT *
+                            _user.getBodyWeight()/KG_IN_POUND + FEMALE_HEIGHT_CONSTANT *
+                            _user.getHeight()*CM_IN_INCH - FEMALE_AGE_CONSTANT*_user.getAge();
+                } else if (_user.getHeightUnits().equalsIgnoreCase("cm")) {
+                    basalMetabolicRate =  FEMALE_BASE + FEMALE_WEIGHT_CONSTANT *
+                            _user.getBodyWeight()/KG_IN_POUND + FEMALE_HEIGHT_CONSTANT *
+                            _user.getHeight() - FEMALE_AGE_CONSTANT*_user.getAge();
                 }
-            } else if(user.getWeightUnits().equalsIgnoreCase("kg")) {
-                if(user.getHeightUnits().equalsIgnoreCase("in")) {
-                    basalMetabolicRate =  FEMALE_BASE + 9.56*user.getBodyWeight() +
-                            1.84*(user.getHeight()*2.54) - 4.67*user.getAge();
-                } else if (user.getHeightUnits().equalsIgnoreCase("cm")) {
-                    basalMetabolicRate =  FEMALE_BASE + 9.56*user.getBodyWeight() +
-                            1.84*user.getHeight() - 4.67*user.getAge();
+            } else if(_user.getWeightUnits().equalsIgnoreCase("kg")) {
+                if(_user.getHeightUnits().equalsIgnoreCase("in")) {
+                    basalMetabolicRate =  FEMALE_BASE + FEMALE_WEIGHT_CONSTANT *
+                            _user.getBodyWeight() + FEMALE_HEIGHT_CONSTANT *_user.getHeight() *
+                            CM_IN_INCH - FEMALE_AGE_CONSTANT * _user.getAge();
+                } else if (_user.getHeightUnits().equalsIgnoreCase("cm")) {
+                    basalMetabolicRate =  FEMALE_BASE + FEMALE_WEIGHT_CONSTANT *
+                            _user.getBodyWeight() + FEMALE_HEIGHT_CONSTANT *_user.getHeight() -
+                            FEMALE_AGE_CONSTANT*_user.getAge();
                 }
             }
         }
         return basalMetabolicRate;
     }
 
-    public double calculateRunBurn(User user, String units, double distance) {
+    public double calculateRunBurn(String units, double distance) {
         double result = 0;
 
         if (units.equalsIgnoreCase("mi")) {
-            result = user.getBodyWeight() *
+            result = _user.getBodyWeight() *
                     RUNNING_CONSTANT * distance;
         } else if (units.equalsIgnoreCase("km")) {
-            result = user.getBodyWeight() *
+            result = _user.getBodyWeight() *
                     RUNNING_CONSTANT * distance * KM_IN_MILE;
         }
         return result;
     }
 
-    public double  calculateWalkBurn(User user, String units, double distance) {
+    public double  calculateWalkBurn(String units, double distance) {
         double result = 0;
 
         if (units.equalsIgnoreCase("mi")) {
-            result = user.getBodyWeight() *
+            result = _user.getBodyWeight() *
                     WALKING_CONSTANT * distance;
         } else if (units.equalsIgnoreCase("km")) {
-            result = user.getBodyWeight() *
+            result = _user.getBodyWeight() *
                     WALKING_CONSTANT * distance * KM_IN_MILE;
         }
         return result;

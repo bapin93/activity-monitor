@@ -30,7 +30,7 @@ public class CalculateActivityView extends Activity {
         setContentView(R.layout.activity_calculate_activity_view);
         Intent i = getIntent();
         _user = (User)i.getSerializableExtra(InformationInputView.EXTRA_USER);
-        _calculationService = new CalculationService();
+        _calculationService = new CalculationService(_user);
         NumberFormat decimal = DecimalFormat.getNumberInstance();
                 ((TextView) findViewById(R.id.username)).setText(_user.getName());
         ((TextView)findViewById(R.id.age)).setText("Age: " + _user.getAge());
@@ -40,7 +40,7 @@ public class CalculateActivityView extends Activity {
         ((TextView)findViewById(R.id.weight)).setText("Weight: " +
                 String.valueOf(_user.getBodyWeight()) + _user.getWeightUnits());
         ((TextView)findViewById(R.id.bmr_label)).setText(String.valueOf(decimal
-                .format(_calculationService.calculateBMR(_user))) + " calories");
+                .format(_calculationService.calculateBMR())) + " calories");
 
     }
 
@@ -91,12 +91,12 @@ public class CalculateActivityView extends Activity {
             double walkDistance = Double.parseDouble(walkField.getText().toString());
             progressBar.setMax(goal);
 
-            double caloriesBurnedRunning = _calculationService.calculateRunBurn(
-                    _user, runUnits, runDistance);
-            double caloriesBurnedWalking = _calculationService.calculateWalkBurn(
-                    _user, walkUnits, walkDistance);
-            double totalCaloriesBurned = _calculationService.calculateBMR(_user) +
-                    caloriesBurnedRunning + caloriesBurnedWalking;
+            double caloriesBurnedRunning = _calculationService
+                    .calculateRunBurn(runUnits, runDistance);
+            double caloriesBurnedWalking = _calculationService
+                    .calculateWalkBurn(walkUnits, walkDistance);
+            double totalCaloriesBurned = _calculationService.calculateBMR() + _calculationService
+                    .calculateTotalBurn(caloriesBurnedRunning, caloriesBurnedWalking);
             if (totalCaloriesBurned < goal) {
                 progressBar.setProgress((int) totalCaloriesBurned);
                 progressText.setText(progressBar.getProgress() + "/" + progressBar.getMax());
