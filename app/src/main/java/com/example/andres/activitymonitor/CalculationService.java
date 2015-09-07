@@ -7,6 +7,9 @@ public class CalculationService {
 
     private static final double MALE_BASE = 66.47;
     private static final double FEMALE_BASE = 665.09;
+    private static final double KM_IN_MILE = 0.621;
+    private static final double RUNNING_CONSTANT = 0.63;
+    private static final double WALKING_CONSTANT = 0.30;
 
 
     /**
@@ -57,5 +60,41 @@ public class CalculationService {
             }
         }
         return basalMetabolicRate;
+    }
+
+    public double calculateRunBurn(User user, String units, double distance) {
+        double result = 0;
+
+        if (units.equalsIgnoreCase("mi")) {
+            result = user.getBodyWeight() *
+                    RUNNING_CONSTANT * distance;
+        } else if (units.equalsIgnoreCase("km")) {
+            result = user.getBodyWeight() *
+                    RUNNING_CONSTANT * distance * KM_IN_MILE;
+        }
+        return result;
+    }
+
+    public double  calculateWalkBurn(User user, String units, double distance) {
+        double result = 0;
+
+        if (units.equalsIgnoreCase("mi")) {
+            result = user.getBodyWeight() *
+                    WALKING_CONSTANT * distance;
+        } else if (units.equalsIgnoreCase("km")) {
+            result = user.getBodyWeight() *
+                    WALKING_CONSTANT * distance * KM_IN_MILE;
+        }
+        return result;
+    }
+
+    public double calculateTotalBurn(double ... activities) {
+        double result = 0;
+        if(activities != null) {
+            for (double d : activities) {
+                result += d;
+            }
+        }
+        return result;
     }
 }

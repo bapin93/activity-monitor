@@ -91,26 +91,12 @@ public class CalculateActivityView extends Activity {
             double walkDistance = Double.parseDouble(walkField.getText().toString());
             progressBar.setMax(goal);
 
-            double caloriesBurnedRunning = 0;
-            double caloriesBurnedWalking = 0;
-
-            if(runUnits.equalsIgnoreCase("mi")) {
-                caloriesBurnedRunning = _user.getBodyWeight() *
-                        RUNNING_CONSTANT * runDistance;
-            } else if (runUnits.equalsIgnoreCase("km")){
-                caloriesBurnedRunning = _user.getBodyWeight() *
-                        RUNNING_CONSTANT * runDistance * KM_IN_MILE;
-            }
-            if(walkUnits.equalsIgnoreCase("mi")) {
-                caloriesBurnedWalking = _user.getBodyWeight() *
-                        WALKING_CONSTANT * walkDistance;
-            } else if(walkUnits.equalsIgnoreCase("km")) {
-                caloriesBurnedWalking = _user.getBodyWeight() *
-                        WALKING_CONSTANT * walkDistance * KM_IN_MILE;
-            }
+            double caloriesBurnedRunning = _calculationService.calculateRunBurn(
+                    _user, runUnits, runDistance);
+            double caloriesBurnedWalking = _calculationService.calculateWalkBurn(
+                    _user, walkUnits, walkDistance);
             double totalCaloriesBurned = _calculationService.calculateBMR(_user) +
                     caloriesBurnedRunning + caloriesBurnedWalking;
-
             if (totalCaloriesBurned < goal) {
                 progressBar.setProgress((int) totalCaloriesBurned);
                 progressText.setText(progressBar.getProgress() + "/" + progressBar.getMax());
