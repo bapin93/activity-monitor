@@ -41,7 +41,6 @@ public class CalculateActivityView extends Activity {
                 String.valueOf(_user.getBodyWeight()) + _user.getWeightUnits());
         ((TextView)findViewById(R.id.bmr_label)).setText(String.valueOf(decimal
                 .format(_calculationService.calculateBMR())) + " calories");
-
     }
 
     @Override
