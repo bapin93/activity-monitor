@@ -25,7 +25,7 @@ public class CalculateActivityView extends Activity {
     private User _user;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculate_activity_view);
         Intent i = getIntent();
@@ -45,14 +45,14 @@ public class CalculateActivityView extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_calculate_activity_view, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -66,7 +66,7 @@ public class CalculateActivityView extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void calculate(View view){
+    public void calculate(final View view){
         EditText goalField = (EditText) findViewById(R.id.calories_to_burn);
         EditText runField = (EditText) findViewById(R.id.distance_running);
         EditText walkField = (EditText) findViewById(R.id.distance_walking);

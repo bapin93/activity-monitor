@@ -19,15 +19,16 @@ public class User implements Serializable{
     /**
      * Constructor
      *
-     * @param name
-     * @param bodyWeight
-     * @param height
-     * @param heightUnit
-     * @param age
-     * @param gender
+     * @param name the username
+     * @param bodyWeight user's body weight
+     * @param height user's height
+     * @param heightUnit the unit for height
+     * @param age user's age
+     * @param gender user's gender
      */
-    public User(String name, double bodyWeight, double height,
-                String heightUnit, String weightUnit, int age, String gender) {
+    public User(final String name, final double bodyWeight, final double height,
+                final String heightUnit, final String weightUnit, final int age,
+                final String gender) {
         _name = name;
         _bodyWeight = bodyWeight;
         _height = height;

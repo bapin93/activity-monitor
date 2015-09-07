@@ -82,7 +82,7 @@ public class CalculationService {
         return basalMetabolicRate;
     }
 
-    public double calculateRunBurn(String units, double distance) {
+    public double calculateRunBurn(final String units, final double distance) {
         double result = 0;
 
         if (units.equalsIgnoreCase("mi")) {
@@ -95,7 +95,7 @@ public class CalculationService {
         return result;
     }
 
-    public double  calculateWalkBurn(String units, double distance) {
+    public double  calculateWalkBurn(final String units, final double distance) {
         double result = 0;
 
         if (units.equalsIgnoreCase("mi")) {
@@ -108,7 +108,7 @@ public class CalculationService {
         return result;
     }
 
-    public double calculateTotalBurn(double ... activities) {
+    public double calculateTotalBurn(final double ... activities) {
         double result = 0;
         if(activities != null) {
             for (double d : activities) {
