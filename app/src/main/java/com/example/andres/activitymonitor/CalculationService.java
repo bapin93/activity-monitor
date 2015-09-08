@@ -82,6 +82,12 @@ public class CalculationService {
         return basalMetabolicRate;
     }
 
+    /**
+     *
+     * @param units
+     * @param distance
+     * @return
+     */
     public double calculateRunBurn(final String units, final double distance) {
         double result = 0;
 
@@ -95,6 +101,12 @@ public class CalculationService {
         return result;
     }
 
+    /**
+     *
+     * @param units
+     * @param distance
+     * @return
+     */
     public double  calculateWalkBurn(final String units, final double distance) {
         double result = 0;
 
@@ -108,8 +120,13 @@ public class CalculationService {
         return result;
     }
 
+    /**
+     *
+     * @param activities
+     * @return
+     */
     public double calculateTotalBurn(final double ... activities) {
-        double result = 0;
+        double result = calculateBMR();
         if(activities != null) {
             for (double d : activities) {
                 result += d;
